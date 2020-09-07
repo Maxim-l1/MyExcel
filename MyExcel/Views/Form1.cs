@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Activities.Statements;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -48,7 +49,9 @@ namespace MyExcel
             {
                 try
                 {
-                    dataGridView1.CurrentCell = dataGridView1.Rows[Convert.ToInt32(address.Text.Remove(0, 1)) - 1].Cells["C" + address.Text[0]];
+                    dataGridView1.CurrentCell = 
+                        dataGridView1.Rows[Convert.ToInt32(address.Text.Remove(0, 1)) - 1].Cells["C" + 
+                        address.Text[0]];
                     dataGridView1.BeginEdit(true);
                 }
                 catch
@@ -74,7 +77,8 @@ namespace MyExcel
                 if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
                 {
                     dataGridView1.CellValueChanged -= dataGridView1_CellValueChanged;
-                    controller.Evaluate(dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString(), e.RowIndex, e.ColumnIndex, dataGridView1.Columns[e.ColumnIndex].HeaderText);
+                    controller.Evaluate(dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString(), 
+                        e.RowIndex, e.ColumnIndex, dataGridView1.Columns[e.ColumnIndex].HeaderText);
                     Thread myThread = new Thread(new ThreadStart(Ref));
                 }
             }
@@ -104,10 +108,27 @@ namespace MyExcel
             e.Row.HeaderCell.Value = (e.Row.Index + 1).ToString();
         }
 
-        public void Ref()
+        public void Ref(/*int row, int col*/)
         {
             dataGridView1.Refresh();
             dataGridView1.CellValueChanged += dataGridView1_CellValueChanged;
+            //this.suppliesTableAdapter.Fill(this.homeConnect.supplies);
+            //1) supplies - имя таблицы из бд;
+            //2) homeConnect - название подключения(которое указывается при добавлении источника данных к проекту).
+            //adapter.Update((DataTable)dataGridView1.DataSource);//обновляет БД
+        }
+
+        private void function_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                controller.Evaluate(func.Text, 
+                    dataGridView1.CurrentCell.RowIndex, 
+                    dataGridView1.CurrentCell.ColumnIndex, 
+                    dataGridView1.Columns[dataGridView1.CurrentCell.ColumnIndex].HeaderText);
+                dataGridView1.CellValueChanged -= dataGridView1_CellValueChanged;
+                Thread myThread = new Thread(new ThreadStart(Ref));
+            }
         }
     }
 }

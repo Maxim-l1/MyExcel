@@ -127,7 +127,9 @@ namespace MyExcel.Controllers
                 return e.Message;
             }
             if (AddAddressToLinks != "")
+            {
                 links.Add(strtemp/*str[0] + resI.ToString()*/, AddAddressToLinks);
+            }
             return str;
         }
 
