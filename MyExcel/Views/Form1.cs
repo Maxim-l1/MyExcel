@@ -130,5 +130,11 @@ namespace MyExcel
                 Thread myThread = new Thread(new ThreadStart(Ref));
             }
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            // TODO: данная строка кода позволяет загрузить данные в таблицу "progDataDataSet.View". При необходимости она может быть перемещена или удалена.
+
+        }
     }
 }

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using MyExcel.Models;
 
 namespace MyExcel.Controllers
 {
@@ -32,7 +33,7 @@ namespace MyExcel.Controllers
             bool isDouble = Double.TryParse(expression, out resD);
             if (expression == "" || isInt == true || isDouble == true)
             {
-                viewDatas[row][col] = expression;
+                viewDatas[row][col, row + 1] = expression;
                 progDatas[row][col] = expression;
                 foreach (KeyValuePair<string, string> kvp in links)
                 {
@@ -47,7 +48,7 @@ namespace MyExcel.Controllers
             }
             else if (expression[0] == '\'')
             {
-                viewDatas[row][col] = expression.Remove(0, 1);
+                viewDatas[row][col, row + 1] = expression.Remove(0, 1);
                 progDatas[row][col] = expression;
             }
             else if (expression[0] == '=')
@@ -61,7 +62,7 @@ namespace MyExcel.Controllers
                     {
                         using (DataTable eval = new DataTable())
                         {
-                            viewDatas[row][col] = eval.Compute(expression, null).ToString();
+                            viewDatas[row][col, row + 1] = eval.Compute(expression, null).ToString();
                             progDatas[row][col] = "=" + expression;
                         }
                     }
@@ -83,14 +84,14 @@ namespace MyExcel.Controllers
                         }
                         using (DataTable eval = new DataTable())
                         {
-                            viewDatas[row][col] = eval.Compute(expression, null).ToString();
+                            viewDatas[row][col, row + 1] = eval.Compute(expression, null).ToString();
                             progDatas[row][col] = "=" + expression1;
                         }
                     }
                 }
                 catch (Exception e)
                 {
-                    viewDatas[row][col] = $"#ошибка: {e.Message}";
+                    viewDatas[row][col, row + 1] = $"#ошибка: {e.Message}";
                     progDatas[row][col] = e.Message;
                 }
 
@@ -135,43 +136,43 @@ namespace MyExcel.Controllers
 
         public void Upload()
         {
-            viewDatas[0][0] = "12";
+            viewDatas[0][0, 1] = "12";
             progDatas[0][0] = "12";
 
-            viewDatas[1][0] = "9.6";
+            viewDatas[1][0, 2] = "9.6";
             progDatas[1][0] = "=A1+B1*C1/5";
 
-            viewDatas[2][0] = "Test";
+            viewDatas[2][0, 3] = "Test";
             progDatas[2][0] = "'Test";
 
 
-            viewDatas[0][1] = "-4";
+            viewDatas[0][1, 1] = "-4";
             progDatas[0][1] = "=C2";
 
-            viewDatas[1][1] = "-38.4";
+            viewDatas[1][1, 2] = "-38.4";
             progDatas[1][1] = "=A2*B1";
 
-            viewDatas[2][1] = "1";
+            viewDatas[2][1, 3] = "1";
             progDatas[2][1] = "=4-3";
 
 
-            viewDatas[0][2] = "3";
+            viewDatas[0][2, 1] = "3";
             progDatas[0][2] = "3";
 
-            viewDatas[1][2] = "-4";
+            viewDatas[1][2, 2] = "-4";
             progDatas[1][2] = "=B3-C3";
 
-            viewDatas[2][2] = "5";
+            viewDatas[2][2, 3] = "5";
             progDatas[2][2] = "5";
 
 
-            viewDatas[0][3] = "Sample";
+            viewDatas[0][3, 1] = "Sample";
             progDatas[0][3] = "'Sample";
 
-            viewDatas[1][3] = "Spread";
+            viewDatas[1][3, 2] = "Spread";
             progDatas[1][3] = "'Spread";
 
-            viewDatas[2][3] = "Sheet";
+            viewDatas[2][3, 3] = "Sheet";
             progDatas[2][3] = "'Sheet";
         }
     }

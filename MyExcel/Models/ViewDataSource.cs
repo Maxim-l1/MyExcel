@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MyExcel.Controllers;
 
-namespace MyExcel.Controllers
+namespace MyExcel.Models
 {
     class ViewDataSource
     {
@@ -47,7 +48,7 @@ namespace MyExcel.Controllers
         public string P { get; set; }
         public string Q { get; set; }
 
-        public string this[int index]
+        public string this[int index, int indexTemp]
         {
             get
             {
@@ -78,23 +79,57 @@ namespace MyExcel.Controllers
             {
                 switch (index)
                 {
-                    case 0: A = value; break;
-                    case 1: B = value; break;
-                    case 2: C = value; break;
-                    case 3: D = value; break;
-                    case 4: E = value; break;
-                    case 5: F = value; break;
-                    case 6: G = value; break;
-                    case 7: H = value; break; 
-                    case 8: I = value; break;
-                    case 9: J = value; break;
-                    case 10: K = value; break;
-                    case 11: L = value; break;
-                    case 12: M = value; break;
-                    case 13: N = value; break;
-                    case 14: O = value; break;
-                    case 15: P = value; break;
-                    case 16: Q = value; break;
+                    case 0: A = value;
+                        DBViewConnect.UpdateToViewDB(indexTemp.ToString(), "A", value);
+                        break;
+                    case 1: B = value;
+                        DBViewConnect.UpdateToViewDB(indexTemp.ToString(), "B", value);
+                        break;
+                    case 2: C = value;
+                        DBViewConnect.UpdateToViewDB(indexTemp.ToString(), "C", value);
+                        break;
+                    case 3: D = value;
+                        DBViewConnect.UpdateToViewDB(indexTemp.ToString(), "D", value);
+                        break;
+                    case 4: E = value;
+                        DBViewConnect.UpdateToViewDB(indexTemp.ToString(), "E", value);
+                        break;
+                    case 5: F = value;
+                        DBViewConnect.UpdateToViewDB(indexTemp.ToString(), "F", value);
+                        break;
+                    case 6: G = value;
+                        DBViewConnect.UpdateToViewDB(indexTemp.ToString(), "G", value);
+                        break;
+                    case 7: H = value;
+                        DBViewConnect.UpdateToViewDB(indexTemp.ToString(), "H", value);
+                        break; 
+                    case 8: I = value;
+                        DBViewConnect.UpdateToViewDB(indexTemp.ToString(), "I", value);
+                        break;
+                    case 9: J = value;
+                        DBViewConnect.UpdateToViewDB(indexTemp.ToString(), "J", value);
+                        break;
+                    case 10: K = value;
+                        DBViewConnect.UpdateToViewDB(indexTemp.ToString(), "K", value);
+                        break;
+                    case 11: L = value;
+                        DBViewConnect.UpdateToViewDB(indexTemp.ToString(), "L", value);
+                        break;
+                    case 12: M = value;
+                        DBViewConnect.UpdateToViewDB(indexTemp.ToString(), "M", value);
+                        break;
+                    case 13: N = value;
+                        DBViewConnect.UpdateToViewDB(indexTemp.ToString(), "N", value);
+                        break;
+                    case 14: O = value;
+                        DBViewConnect.UpdateToViewDB(indexTemp.ToString(), "O", value);
+                        break;
+                    case 15: P = value;
+                        DBViewConnect.UpdateToViewDB(indexTemp.ToString(), "P", value);
+                        break;
+                    case 16: Q = value;
+                        DBViewConnect.UpdateToViewDB(indexTemp.ToString(), "Q", value);
+                        break;
                 }
             }
         }
@@ -126,7 +161,7 @@ namespace MyExcel.Controllers
                 return "-1";
             }
 
-            set
+            /*set
             {
                 switch (address)
                 {
@@ -148,7 +183,7 @@ namespace MyExcel.Controllers
                     case 'P': P = value; break;
                     case 'Q': Q = value; break;
                 }
-            }
+            }*/
         }
     }
 }

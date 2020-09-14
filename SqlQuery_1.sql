@@ -1,0 +1,25 @@
+﻿CREATE DATABASE Test1;
+
+USE Test;
+
+CREATE TABLE TableTest
+(
+[id] INT IDENTITY(1,1) PRIMARY KEY,
+    [A]  VARCHAR (50) NULL,
+    [B]  VARCHAR (50) NULL,
+    [C]  VARCHAR (50) NULL,
+    [D]  VARCHAR (50) NULL,
+    [E]  VARCHAR (50) NULL,
+    [F]  VARCHAR (50) NULL,
+    [G]  VARCHAR (50) NULL,
+    [H]  VARCHAR (50) NULL,
+    [I]  VARCHAR (50) NULL,
+    [J]  VARCHAR (50) NULL,
+    [K]  VARCHAR (50) NULL,
+    [L]  VARCHAR (50) NULL,
+    [M]  VARCHAR (50) NULL,
+    [N]  VARCHAR (50) NULL,
+    [O]  VARCHAR (50) NULL,
+    [P]  VARCHAR (50) NULL,
+    [Q]  VARCHAR (50) NULL,
+)
