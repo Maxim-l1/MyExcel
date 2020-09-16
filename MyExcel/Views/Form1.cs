@@ -79,6 +79,11 @@ namespace MyExcel
                     dataGridView1.CellValueChanged -= dataGridView1_CellValueChanged;
                     controller.Evaluate(dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString(), 
                         e.RowIndex, e.ColumnIndex, dataGridView1.Columns[e.ColumnIndex].HeaderText);
+                    if (controller.IsUpdate == true)
+                    {
+                        dataGridView1.Refresh();
+                        controller.IsUpdate = false;
+                    }
                     Thread myThread = new Thread(new ThreadStart(Ref));
                 }
             }
@@ -112,10 +117,6 @@ namespace MyExcel
         {
             dataGridView1.Refresh();
             dataGridView1.CellValueChanged += dataGridView1_CellValueChanged;
-            //this.suppliesTableAdapter.Fill(this.homeConnect.supplies);
-            //1) supplies - имя таблицы из бд;
-            //2) homeConnect - название подключения(которое указывается при добавлении источника данных к проекту).
-            //adapter.Update((DataTable)dataGridView1.DataSource);//обновляет БД
         }
 
         private void function_KeyDown(object sender, KeyEventArgs e)

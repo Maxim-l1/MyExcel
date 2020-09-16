@@ -15,6 +15,8 @@ namespace MyExcel.Controllers
         public List<ViewDataSource> viewDatas = new List<ViewDataSource>();
         public List<ProgDataSource> progDatas = new List<ProgDataSource>();
         public Dictionary<string, string> links = new Dictionary<string, string>();
+        public List<KeyValuePair<string, string>> links1 = new List<KeyValuePair<string, string>>();
+        public bool IsUpdate { get; set; }
 
         public Controller()
         {
@@ -23,6 +25,7 @@ namespace MyExcel.Controllers
                 viewDatas.Add(new ViewDataSource("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""));
                 progDatas.Add(new ProgDataSource("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""));
             }
+            IsUpdate = false;
         }
         public void Evaluate(string expression, int row, int col, string colStr)
         {
@@ -35,7 +38,7 @@ namespace MyExcel.Controllers
             {
                 viewDatas[row][col, row + 1] = expression;
                 progDatas[row][col] = expression;
-                foreach (KeyValuePair<string, string> kvp in links)
+                foreach (KeyValuePair<string, string> kvp in links1)
                 {
                     if (kvp.Key == colStr + (row + 1).ToString())
                     {
@@ -43,6 +46,7 @@ namespace MyExcel.Controllers
                         int rowTemp = Convert.ToInt32(addressTemp[0]);
                         int colTemp = Convert.ToInt32(addressTemp[1]);
                         Evaluate(progDatas[rowTemp][colTemp], rowTemp, colTemp, "");
+                        IsUpdate = true;
                     }
                 }
             }
@@ -72,8 +76,13 @@ namespace MyExcel.Controllers
                         string x;
                         int y;
                         string expression1 = expression;
+                        int perev;
                         for (int i = 0; i < st.Length; i++)
                         {
+                            if (Int32.TryParse(st[i], out perev) == true)
+                            {
+                                continue;
+                            }
                             if (colStr != "")
                                 x = GetAddressItem(st[i], row.ToString() + " " + col.ToString());
                             else
@@ -129,18 +138,23 @@ namespace MyExcel.Controllers
             }
             if (AddAddressToLinks != "")
             {
-                links.Add(strtemp/*str[0] + resI.ToString()*/, AddAddressToLinks);
+                //links.Add(strtemp/*str[0] + resI.ToString()*/, AddAddressToLinks);
+                links1.Add(new KeyValuePair<string, string>(strtemp, AddAddressToLinks));
             }
             return str;
         }
 
         public void Upload()
         {
+            links1.Clear();
             viewDatas[0][0, 1] = "12";
             progDatas[0][0] = "12";
 
             viewDatas[1][0, 2] = "9.6";
             progDatas[1][0] = "=A1+B1*C1/5";
+            links1.Add(new KeyValuePair<string, string>("A1", "1 0"));
+            links1.Add(new KeyValuePair<string, string>("B1", "1 0"));
+            links1.Add(new KeyValuePair<string, string>("C1", "1 0"));
 
             viewDatas[2][0, 3] = "Test";
             progDatas[2][0] = "'Test";
@@ -148,9 +162,12 @@ namespace MyExcel.Controllers
 
             viewDatas[0][1, 1] = "-4";
             progDatas[0][1] = "=C2";
+            links1.Add(new KeyValuePair<string, string>("C2", "0 1"));
 
             viewDatas[1][1, 2] = "-38.4";
             progDatas[1][1] = "=A2*B1";
+            links1.Add(new KeyValuePair<string, string>("A2", "1 1"));
+            links1.Add(new KeyValuePair<string, string>("B1", "1 1"));
 
             viewDatas[2][1, 3] = "1";
             progDatas[2][1] = "=4-3";
@@ -161,6 +178,8 @@ namespace MyExcel.Controllers
 
             viewDatas[1][2, 2] = "-4";
             progDatas[1][2] = "=B3-C3";
+            links1.Add(new KeyValuePair<string, string>("B3", "1 2"));
+            links1.Add(new KeyValuePair<string, string>("C3", "1 2"));
 
             viewDatas[2][2, 3] = "5";
             progDatas[2][2] = "5";
