@@ -100,10 +100,11 @@ namespace MyExcel
         private void dataGridView1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             //isDoub = true;             // код для события при двойном щелчке
-            //dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = progM[e.RowIndex, e.ColumnIndex];
+            //dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = controller.progDatas[e.RowIndex][e.ColumnIndex];
             //dataGridView1.CurrentCell = dataGridView1.Rows[e.RowIndex - 1].Cells[e.ColumnIndex];
             //dataGridView1.CurrentCell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
             //dataGridView1.BeginEdit(true);
+            //dataGridView1.Refresh();
             //rowD = e.RowIndex;
             //colD = e.ColumnIndex;
         }
